@@ -6,15 +6,15 @@ const KEY = `cLW6bUW6XdbikgWOBdHCoq&amp`;
  axios.defaults.baseURL = `https://quintadb.com`;
   
   const response = await axios.get(`/apps/azWQL1W5LllyoVW6WCfmkE/dtypes/entity/bPWO7cUvPiEQ5tW4_dVvH_.json?rest_api_key=${KEY}`);  
-  console.log(response.data.records)
+  
   return response.data.records;
 
 };
 
-export const addNote = async (text) => {
+export const addNote = async () => {
 
 
-  // console.log(text)
+  console.log("addNote works")
 const APP_ID = 'azWQL1W5LllyoVW6WCfmkE'; 
 const ENTITY_ID = 'bPWO7cUvPiEQ5tW4_dVvH_'; 
 const API_KEY = `cLW6bUW6XdbikgWOBdHCoq`; 
@@ -24,11 +24,12 @@ const fieldText = 'ddQ8kFps1ff4owWPldSCow';
   const requestBody = {
   values: {
     entity_id: ENTITY_ID,
-    [fieldText]: text,
+    [fieldText]: `Add your note: `,
   },
 };
   try {
-    const response = await  axios.post('', requestBody);
+    const response = await axios.post('', requestBody);
+    
     return response.data.records;
   } catch (error) {
     console.log(error)

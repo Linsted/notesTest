@@ -8,7 +8,7 @@ export const WorkSpace = () => {
 
     
 
-    const {notes, selectedNote, handleTextChange} = useContext(NotesContext);
+    const {notes, selectedNote, handleTextChange, createNewNote} = useContext(NotesContext);
     const [toggleButton, setToggleButton] = useState(true);
     const textAreaRef = useRef(null);
 
@@ -47,6 +47,12 @@ export const WorkSpace = () => {
         handleTextChange(noteSelectedByUser.id, event.currentTarget.value);
 
     };
+
+    const handleCreateButton = () => {
+
+        createNewNote();
+        setToggleButton(false);
+    };
     
 
 
@@ -58,7 +64,7 @@ export const WorkSpace = () => {
     return (<>
         
         <div>
-            <button type="button">Create</button>
+            <button type="button" onClick={handleCreateButton}>Create</button>
             <button type="button" onClick={handleClick} disabled={!selectedNote}>Edit</button>
 
            

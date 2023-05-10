@@ -23,6 +23,15 @@ export const App = () => {
     getNotes();
   }, 1000);
 
+  const createNewNote = async () => {
+
+    
+    await addNote();
+    getNotes();
+    handleItemClick(notes[0].id)
+
+  }
+
 
 
   const getNotes = async () => {
@@ -42,7 +51,7 @@ export const App = () => {
   
 
   return (
-    <NotesContext.Provider value={{ notes, handleItemClick, selectedNote, handleTextChange }}>
+    <NotesContext.Provider value={{ notes, handleItemClick, selectedNote, handleTextChange, createNewNote }}>
       <SideBar notes={notes} />
     <WorkSpace />
     </NotesContext.Provider>
