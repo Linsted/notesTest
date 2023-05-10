@@ -1,8 +1,10 @@
-import { fetchNotes } from "API/Api";
+import { addNote, fetchNotes, updateNote } from "API/Api";
 import { NotesContext } from "context";
 import { useEffect, useState } from "react";
 import { WorkSpace } from "./WorkSpace/WorkSpace";
 import { SideBar } from "./SideBar/SideBar";
+import { debounce } from 'lodash';
+
 
 
 
@@ -14,34 +16,33 @@ export const App = () => {
   const [selectedNote, setSelectedNote] = useState(null);
 
 
-  const handleItemClick = (id) => {
-    
-    setSelectedNote(id);
-    
+  const handleItemClick = (id) => { setSelectedNote(id) };
+  
+  const handleTextChange = debounce(async (id, text) => {
+    await updateNote({id, text});
+    getNotes();
+  }, 1000);
+
+
+
+  const getNotes = async () => {
+    try {
+      const data = await fetchNotes();
+      setNotes(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
 
-
-  useEffect(() => {
-    
-    const getNotes = async () => {
-      try {
-        const data = await fetchNotes();
-  
-        setNotes(data)
-      } catch (error) {
-        console.log(error)
-      }
-    
-    }
-    getNotes()
-
+ useEffect(() => {
+    getNotes();
   }, []);
 
   
 
   return (
-    <NotesContext.Provider value={{ notes, handleItemClick, selectedNote }}>
+    <NotesContext.Provider value={{ notes, handleItemClick, selectedNote, handleTextChange }}>
       <SideBar notes={notes} />
     <WorkSpace />
     </NotesContext.Provider>

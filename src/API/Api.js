@@ -3,27 +3,70 @@ import axios from "axios";
 export const fetchNotes = async () => { 
     
 const KEY = `cLW6bUW6XdbikgWOBdHCoq&amp`;
- axios.defaults.baseURL = `https://quintadb.com/apps/azWQL1W5LllyoVW6WCfmkE/dtypes/entity/bPWO7cUvPiEQ5tW4_dVvH_.json?rest_api_key=${KEY}`;
-    
-
-
-  const response = await  axios.get('');  
-
-    
-    return response.data.records;
+ axios.defaults.baseURL = `https://quintadb.com`;
+  
+  const response = await axios.get(`/apps/azWQL1W5LllyoVW6WCfmkE/dtypes/entity/bPWO7cUvPiEQ5tW4_dVvH_.json?rest_api_key=${KEY}`);  
+  console.log(response.data.records)
+  return response.data.records;
 
 };
 
-// export const addNote = async () => { 
+export const addNote = async (text) => {
+
+
+  // console.log(text)
+const APP_ID = 'azWQL1W5LllyoVW6WCfmkE'; 
+const ENTITY_ID = 'bPWO7cUvPiEQ5tW4_dVvH_'; 
+const API_KEY = `cLW6bUW6XdbikgWOBdHCoq`; 
+axios.defaults.baseURL = `https://quintadb.com/apps/${APP_ID}/dtypes.json?rest_api_key=${API_KEY}`;   
+const fieldText = 'ddQ8kFps1ff4owWPldSCow';
+  
+  const requestBody = {
+  values: {
+    entity_id: ENTITY_ID,
+    [fieldText]: text,
+  },
+};
+  try {
+    const response = await  axios.post('', requestBody);
+    return response.data.records;
+  } catch (error) {
+    console.log(error)
+  }
+  
+
+};
+
+export const updateNote = async ({id, text}) => {
+
+
+
     
-// const KEY = `cLW6bUW6XdbikgWOBdHCoq&amp`;
-//  axios.defaults.baseURL = `https://quintadb.com/apps/azWQL1W5LllyoVW6WCfmkE/dtypes/entity/bPWO7cUvPiEQ5tW4_dVvH_.json?rest_api_key=${KEY}`;
-    
+ 
+const APP_ID = 'azWQL1W5LllyoVW6WCfmkE'; 
+// const ENTITY_ID = 'bPWO7cUvPiEQ5tW4_dVvH_'; 
+const API_KEY = `cLW6bUW6XdbikgWOBdHCoq`; 
+axios.defaults.baseURL = `https://quintadb.com`;   
+const fieldText = "ddQ8kFps1ff4owWPldSCow";
+  
+  const requestBody = {
+  values: {
+  
+    [fieldText]: text,
+  },
+};
+  try {
+    const response = await axios.put(`/apps/${APP_ID}/dtypes/${id}.json?rest_api_key=${API_KEY}`, requestBody);
+    console.log(response.data)
+    return response.data.records;
+  } catch (error) {
+    console.log(error)
+  }
+  
+
+};
 
 
-//   const response = await  axios.post('');  
 
-    
-//     return response.data.records;
 
-// };
+// https://quintadb.com/apps/${APP_ID}/dtypes/aOC8o0k0LhWRxcNCoWWPDN.json?rest_api_key=${API_KEY}

@@ -2,6 +2,9 @@ import { ListItem } from "components/ListItem/ListItem"
 
 export const SideBar = ({ notes }) => {
     
+
+
+    
     
     return (<>
         <aside>
@@ -9,3 +12,6 @@ export const SideBar = ({ notes }) => {
         </aside>
     </>)
 }
+
+// cLWQpdLmjnFOkdW5JcHSoT - header
+// ddQ8kFps1ff4owWPldSCow - text 
