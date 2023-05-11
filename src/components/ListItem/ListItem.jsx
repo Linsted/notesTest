@@ -1,5 +1,6 @@
 import { NotesContext } from "context";
 import React, { useContext } from "react";
+import { ItemStyled,HeaderStyled, TextStyled  } from "./ListItem.styled";
 
 
 
@@ -10,7 +11,9 @@ export const ListItem = ({ note }) => {
     const { handleItemClick } = useContext(NotesContext);
 
     return (<>
-        <li onClick={() => handleItemClick(note.id)}><p>{note.noteText}</p></li>
+        <ItemStyled onClick={() => handleItemClick(note.id)}><HeaderStyled>{`${note.noteText.slice(0, 15)}...`}</HeaderStyled>
+            <TextStyled>{note.noteText}</TextStyled>
+        </ItemStyled>
     </>)
 };
 

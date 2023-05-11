@@ -1,6 +1,8 @@
 
+import { ModalWindow } from "components/ModalWindow/ModalWindow";
 import { NotesContext } from "context";
 import { useContext, useState, useRef, useEffect } from "react";
+import { ContainerStyled,ButtonStyled, FormStyled,TextStyled  } from "./WorkSpace.styled";
 
 
 export const WorkSpace = () => {
@@ -10,6 +12,7 @@ export const WorkSpace = () => {
 
     const {notes, selectedNote, handleTextChange, createNewNote, deleteNoteById} = useContext(NotesContext);
     const [toggleButton, setToggleButton] = useState(true);
+    const [showConfirmation, setShowConfirmation] = useState(false);
     const textAreaRef = useRef(null);
 
     
@@ -42,6 +45,18 @@ export const WorkSpace = () => {
 
     };
 
+    const handleCancel = () => setShowConfirmation(false);
+    const handleDelete = () => {
+        setShowConfirmation(false);
+        deleteNoteById(noteSelectedByUser.id);
+        setNoteText('');
+        setToggleButton(true);
+    };
+
+
+
+
+
     const handleChange =  (event ) => { 
 
         setNoteText(event.currentTarget.value);
@@ -50,36 +65,36 @@ export const WorkSpace = () => {
     };
 
     const handleCreateButton = () => createNewNote();
-    const handleDeleteButton = () => {
-        deleteNoteById(noteSelectedByUser.id);
-        setNoteText('');
-        setToggleButton(true);
+  
+
+    const props = {
+        id: noteSelectedByUser?.id,
+        handleCancel,
+        handleDelete,
     };
-
-
-
-    
 
 
 
     return (<>
         
-        <div>
-            <button type="button" onClick={handleCreateButton}>Create</button>
-            <button type="button" onClick={handleEditClick} disabled={!selectedNote}>Edit</button>
-            <button type="button" onClick={handleDeleteButton}  disabled={!selectedNote}>Delete</button>
+        <ContainerStyled>
+            <ButtonStyled type="button" onClick={handleCreateButton}>Create</ButtonStyled>
+            <ButtonStyled type="button" onClick={handleEditClick} disabled={!selectedNote}>Edit</ButtonStyled>
+            <ButtonStyled type="button" onClick={() => setShowConfirmation(true)}  disabled={!selectedNote}>Delete</ButtonStyled>
            
 
-            <form>
-                <textarea
+            <FormStyled>
+                <TextStyled
                     ref={textAreaRef}
                     disabled={toggleButton}
                     onChange={handleChange}
                     value={noteText}
                 />
-            </form>
+            </FormStyled>
+
+            {showConfirmation && <ModalWindow {...props} />}
   
-        </div>
+        </ContainerStyled>
     </>);
 };
 
