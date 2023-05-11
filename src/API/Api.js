@@ -2,35 +2,29 @@ import axios from "axios";
 
 export const fetchNotes = async () => { 
     
-const KEY = `cLW6bUW6XdbikgWOBdHCoq&amp`;
- axios.defaults.baseURL = `https://quintadb.com`;
+
+ axios.defaults.baseURL = `https://645cca91250a246ae30e2ca6.mockapi.io`;
   
-  const response = await axios.get(`/apps/azWQL1W5LllyoVW6WCfmkE/dtypes/entity/bPWO7cUvPiEQ5tW4_dVvH_.json?rest_api_key=${KEY}`);  
-  
-  return response.data.records;
+  const response = await axios.get(`/notes`);  
+ 
+  return response.data;
 
 };
 
 export const addNote = async () => {
 
 
-  console.log("addNote works")
-const APP_ID = 'azWQL1W5LllyoVW6WCfmkE'; 
-const ENTITY_ID = 'bPWO7cUvPiEQ5tW4_dVvH_'; 
-const API_KEY = `cLW6bUW6XdbikgWOBdHCoq`; 
-axios.defaults.baseURL = `https://quintadb.com/apps/${APP_ID}/dtypes.json?rest_api_key=${API_KEY}`;   
-const fieldText = 'ddQ8kFps1ff4owWPldSCow';
-  
-  const requestBody = {
-  values: {
-    entity_id: ENTITY_ID,
-    [fieldText]: `Add your note: `,
-  },
-};
+
+axios.defaults.baseURL = `https://645cca91250a246ae30e2ca6.mockapi.io`;   
+   const requestBody = {
+    noteText: " ",
+  };
+
   try {
-    const response = await axios.post('', requestBody);
-    
-    return response.data.records;
+    const response = await axios.post('/notes', requestBody);
+    console.log(response)
+    return response.data;
+
   } catch (error) {
     console.log(error)
   }
@@ -38,26 +32,17 @@ const fieldText = 'ddQ8kFps1ff4owWPldSCow';
 
 };
 
-export const updateNote = async ({id, text}) => {
+export const updateNote = async ({ id, text }) => {
 
 
+  axios.defaults.baseURL = `https://645cca91250a246ae30e2ca6.mockapi.io`;
 
-    
- 
-const APP_ID = 'azWQL1W5LllyoVW6WCfmkE'; 
-// const ENTITY_ID = 'bPWO7cUvPiEQ5tW4_dVvH_'; 
-const API_KEY = `cLW6bUW6XdbikgWOBdHCoq`; 
-axios.defaults.baseURL = `https://quintadb.com`;   
-const fieldText = "ddQ8kFps1ff4owWPldSCow";
   
   const requestBody = {
-  values: {
-  
-    [fieldText]: text,
-  },
-};
+    noteText: text,
+  };
   try {
-    const response = await axios.put(`/apps/${APP_ID}/dtypes/${id}.json?rest_api_key=${API_KEY}`, requestBody);
+    const response = await axios.put(`/notes/${id}`, requestBody);
     console.log(response.data)
     return response.data.records;
   } catch (error) {
@@ -69,5 +54,17 @@ const fieldText = "ddQ8kFps1ff4owWPldSCow";
 
 
 
+export const deleteNote = async ( id ) => {
 
-// https://quintadb.com/apps/${APP_ID}/dtypes/aOC8o0k0LhWRxcNCoWWPDN.json?rest_api_key=${API_KEY}
+  axios.defaults.baseURL = `https://645cca91250a246ae30e2ca6.mockapi.io`;
+
+  try {
+    const response = await axios.delete(`/notes/${id}`);
+    console.log(response.data)
+    return response.data.records;
+  } catch (error) {
+    console.log(error)
+  }
+  
+
+};

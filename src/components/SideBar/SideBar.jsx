@@ -1,17 +1,20 @@
-import { ListItem } from "components/ListItem/ListItem"
+import { ListItem } from "components/ListItem/ListItem";
+import { NotesContext } from "context";
+import { useContext } from "react";
 
-export const SideBar = ({ notes }) => {
+
+export const SideBar = () => {
     
 
-        console.log(notes)
-    const sortedNotes = notes.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+    const {notes} = useContext(NotesContext);
+
+    console.log(notes)
+    // const sortedNotes = notes.sort((a, b) => b.date - a.date)
     
     return (<>
         <aside>
-            <ul>{sortedNotes.map(note => <ListItem key={note.id} note={note} />)}</ul>
+            <ul>{notes.map(note => <ListItem key={note.id} note={note} />)}</ul>
         </aside>
     </>)
 }
 
-// cLWQpdLmjnFOkdW5JcHSoT - header
-// ddQ8kFps1ff4owWPldSCow - text 

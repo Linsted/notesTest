@@ -1,4 +1,4 @@
-import { addNote, fetchNotes, updateNote } from "API/Api";
+import { addNote, deleteNote, fetchNotes, updateNote } from "API/Api";
 import { NotesContext } from "context";
 import { useEffect, useState } from "react";
 import { WorkSpace } from "./WorkSpace/WorkSpace";
@@ -16,21 +16,19 @@ export const App = () => {
   const [selectedNote, setSelectedNote] = useState(null);
 
 
-  const handleItemClick = (id) => { setSelectedNote(id) };
+ useEffect(() => {getNotes()}, []);
+
+  const handleItemClick = (id) => {setSelectedNote(id)};
   
   const handleTextChange = debounce(async (id, text) => {
     await updateNote({id, text});
     getNotes();
-  }, 1000);
+  }, 3000);
 
   const createNewNote = async () => {
-
-    
     await addNote();
-    getNotes();
-    handleItemClick(notes[0].id)
-
-  }
+    await getNotes();
+  };
 
 
 
@@ -43,17 +41,21 @@ export const App = () => {
     }
   };
 
+  const deleteNoteById = async (id) => {
+    // console.log(id)
+    await deleteNote(id);
+    await getNotes();
 
- useEffect(() => {
-    getNotes();
-  }, []);
+  }; 
+
+ 
 
   
 
   return (
-    <NotesContext.Provider value={{ notes, handleItemClick, selectedNote, handleTextChange, createNewNote }}>
-      <SideBar notes={notes} />
-    <WorkSpace />
+    <NotesContext.Provider value={{ notes, deleteNoteById, handleItemClick, selectedNote, handleTextChange, createNewNote }}>
+      <SideBar />
+      <WorkSpace />
     </NotesContext.Provider>
   );
 };

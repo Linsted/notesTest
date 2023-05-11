@@ -1,4 +1,4 @@
-import { addNote, updateNote } from "API/Api";
+
 import { NotesContext } from "context";
 import { useContext, useState, useRef, useEffect } from "react";
 
@@ -8,7 +8,7 @@ export const WorkSpace = () => {
 
     
 
-    const {notes, selectedNote, handleTextChange, createNewNote} = useContext(NotesContext);
+    const {notes, selectedNote, handleTextChange, createNewNote, deleteNoteById} = useContext(NotesContext);
     const [toggleButton, setToggleButton] = useState(true);
     const textAreaRef = useRef(null);
 
@@ -28,32 +28,33 @@ export const WorkSpace = () => {
     if (selectedNote) {
         [noteSelectedByUser] = notes.filter(note => note.id === selectedNote);
     };
-    // console.log(noteSelectedByUser)
+    
 
     const [noteText, setNoteText] = useState(``);
 
     useEffect(() => {
-        setNoteText(noteSelectedByUser?.values.ddQ8kFps1ff4owWPldSCow)
+        setNoteText(noteSelectedByUser?.noteText)
     },[noteSelectedByUser])
 
 
-    const handleClick = () => {
+    const handleEditClick = () => {
         setToggleButton(false);
-        addNote();
+
     };
+
     const handleChange =  (event ) => { 
-        
+
         setNoteText(event.currentTarget.value);
         handleTextChange(noteSelectedByUser.id, event.currentTarget.value);
 
     };
 
-    const handleCreateButton = () => {
-
-        createNewNote();
-        setToggleButton(false);
+    const handleCreateButton = () => createNewNote();
+    const handleDeleteButton = () => {
+        deleteNoteById(noteSelectedByUser.id);
+        setNoteText('');
+        setToggleButton(true);
     };
-    
 
 
 
@@ -65,11 +66,11 @@ export const WorkSpace = () => {
         
         <div>
             <button type="button" onClick={handleCreateButton}>Create</button>
-            <button type="button" onClick={handleClick} disabled={!selectedNote}>Edit</button>
-
+            <button type="button" onClick={handleEditClick} disabled={!selectedNote}>Edit</button>
+            <button type="button" onClick={handleDeleteButton}  disabled={!selectedNote}>Delete</button>
            
 
-            <form action="">
+            <form>
                 <textarea
                     ref={textAreaRef}
                     disabled={toggleButton}
