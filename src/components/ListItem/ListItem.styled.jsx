@@ -5,7 +5,7 @@ export const ItemStyled = styled.li`
     padding: 10px;
   border-bottom: 1px solid #ccc; 
   cursor: pointer; 
-
+background-color: ${props => props.isSelected ? '#f0f0f0' : 'transparent'};
     &:hover{
          background-color: #f0f0f0;
     }

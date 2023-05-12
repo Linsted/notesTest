@@ -6,6 +6,8 @@ import { SideBar } from "./SideBar/SideBar";
 import { debounce } from 'lodash';
 import { SearchBox } from "./SearchBox/SearchBox";
 import { ContainerStyled, ContainerSideStyled } from "./App.styled";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 
 
@@ -13,7 +15,7 @@ import { ContainerStyled, ContainerSideStyled } from "./App.styled";
 
 export const App = () => {
 
-
+  const errorText = 'Sorry, there is a problem with the server. Please, contact to your admin!';
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,13 +26,23 @@ export const App = () => {
   const handleItemClick = (id) => {setSelectedNote(id)};
   
   const handleTextChange = debounce(async (id, text) => {
-    await updateNote({id, text});
-    getNotes();
+    try {
+    await updateNote({ id, text });
+    toast.success('Your changes saved!', {duration: 1500});
+      getNotes();
+       } catch (error) {
+      toast.error(errorText, {duration: 5000});
+    }
   }, 3000);
 
   const createNewNote = async () => {
+    try {
     await addNote();
-    await getNotes();
+      await getNotes();
+      toast.success('Note created!', {duration: 1500});
+       } catch (error) {
+      toast.error(errorText, { duration: 5000 });
+    }
   };
 
 
@@ -40,16 +52,19 @@ export const App = () => {
       const data = await fetchNotes();
       setNotes(data);
     } catch (error) {
-      console.log(error);
+      toast.error(errorText, {duration: 5000});
     }
   };
 
   const deleteNoteById = async (id) => {
-
-    await deleteNote(id);
-    await getNotes();
-
-  }; 
+    try {
+      await deleteNote(id);
+      toast.error('Note deleted!', {duration: 1500});
+      await getNotes();
+    } catch (error) {
+      toast.error(errorText, { duration: 5000 });
+    }
+  };
 
     const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -59,7 +74,12 @@ export const App = () => {
     note.noteText.toLowerCase().includes(searchTerm.toLowerCase().trim())
   );
  
-const contextValue = { filteredNotes, searchTerm, handleSearchChange, notes, deleteNoteById, handleItemClick, selectedNote, handleTextChange, createNewNote }
+  const contextValue = {
+    errorText, filteredNotes, searchTerm,
+    handleSearchChange, notes, deleteNoteById,
+    handleItemClick, selectedNote, handleTextChange,
+    setSelectedNote, createNewNote
+  };
   
 
   return (
@@ -72,7 +92,8 @@ const contextValue = { filteredNotes, searchTerm, handleSearchChange, notes, del
         <SideBar />
         <WorkSpace />
         </ContainerSideStyled>
-        </ContainerStyled>
+        <Toaster />
+      </ContainerStyled>
     </NotesContext.Provider>
   );
 };

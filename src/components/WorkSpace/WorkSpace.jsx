@@ -10,7 +10,7 @@ export const WorkSpace = () => {
 
     
 
-    const {notes, selectedNote, handleTextChange, createNewNote, deleteNoteById} = useContext(NotesContext);
+    const {notes, selectedNote, handleTextChange, setSelectedNote, createNewNote, deleteNoteById} = useContext(NotesContext);
     const [toggleButton, setToggleButton] = useState(true);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const textAreaRef = useRef(null);
@@ -49,8 +49,10 @@ export const WorkSpace = () => {
     const handleDelete = () => {
         setShowConfirmation(false);
         deleteNoteById(noteSelectedByUser.id);
+       
         setNoteText('');
         setToggleButton(true);
+        setSelectedNote(null);
     };
 
 
@@ -61,7 +63,7 @@ export const WorkSpace = () => {
 
         setNoteText(event.currentTarget.value);
         handleTextChange(noteSelectedByUser.id, event.currentTarget.value);
-
+        
     };
 
     const handleCreateButton = () => createNewNote();
@@ -78,7 +80,7 @@ export const WorkSpace = () => {
     return (<>
         
         <ContainerStyled>
-            <ButtonStyled type="button" onClick={handleCreateButton}>Create</ButtonStyled>
+            <ButtonStyled type="button" onClick={handleCreateButton}>+</ButtonStyled>
             <ButtonStyled type="button" onClick={handleEditClick} disabled={!selectedNote}>Edit</ButtonStyled>
             <ButtonStyled type="button" onClick={() => setShowConfirmation(true)}  disabled={!selectedNote}>Delete</ButtonStyled>
            
