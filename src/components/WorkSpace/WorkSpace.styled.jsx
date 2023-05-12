@@ -6,14 +6,7 @@ export const ContainerStyled = styled.div`
      width: 290px;
 }
 
- @media (max-width: 480px) {
-    
-}
-
-width: 670px;
-
-
-
+  width: 670px;
   padding: 20px;
   background-color: #fff;
   color: #333;
