@@ -2,6 +2,10 @@ import styled from '@emotion/styled';
 
 export const ItemStyled = styled.li`
 
+    @media (max-width: 480px) {
+    padding: 5px;
+}
+
     padding: 10px;
   border-bottom: 1px solid #ccc; 
   cursor: pointer; 

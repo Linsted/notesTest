@@ -80,9 +80,9 @@ export const WorkSpace = () => {
     return (<>
         
         <ContainerStyled>
-            <ButtonStyled type="button" onClick={handleCreateButton}>+</ButtonStyled>
-            <ButtonStyled type="button" onClick={handleEditClick} disabled={!selectedNote}>Edit</ButtonStyled>
-            <ButtonStyled type="button" onClick={() => setShowConfirmation(true)}  disabled={!selectedNote}>Delete</ButtonStyled>
+            <ButtonStyled type="button" onClick={handleCreateButton}>✚</ButtonStyled>
+            <ButtonStyled type="button" onClick={handleEditClick} disabled={!selectedNote}>✎</ButtonStyled>
+            <ButtonStyled type="button" onClick={() => setShowConfirmation(true)}  disabled={!selectedNote}>✖</ButtonStyled>
            
 
             <FormStyled>

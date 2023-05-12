@@ -1,12 +1,19 @@
 import styled from '@emotion/styled';
 
 export const ContainerStyled = styled.div`
+
+  @media (max-width: 480px) {
+     width: 290px;
+}
+
+ @media (max-width: 480px) {
+    
+}
+
 width: 670px;
 
 
-/* display: flex;
-  flex-direction: column; */
-  /* align-items: flex-start; */
+
   padding: 20px;
   background-color: #fff;
   color: #333;
@@ -23,8 +30,11 @@ font-size: 16px;
   color: #333;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+   &:not(:last-child) {
+    margin-right: 10px;
+  }
 
-&:hover {
+&:hover,&:focus {
   background-color: #e5e5e5;
 }
 &:disabled {
@@ -43,6 +53,11 @@ export const FormStyled = styled.form`
 `;
 
 export const TextStyled = styled.textarea`
+
+  @media (max-width: 480px) {
+    height: 400px;
+}
+
 width: 96%;
   height: 900px;
   padding: 10px;

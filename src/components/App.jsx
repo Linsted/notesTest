@@ -33,7 +33,7 @@ export const App = () => {
        } catch (error) {
       toast.error(errorText, {duration: 5000});
     }
-  }, 3000);
+  }, 2000);
 
   const createNewNote = async () => {
     try {
@@ -66,9 +66,7 @@ export const App = () => {
     }
   };
 
-    const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+    const handleSearchChange = (event) => {setSearchTerm(event.target.value)};
 
    const filteredNotes = notes.filter(note =>
     note.noteText.toLowerCase().includes(searchTerm.toLowerCase().trim())
