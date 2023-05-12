@@ -12,10 +12,10 @@ export const ModalWindow = ({id, handleDelete,handleCancel}) => {
     }, [handleCancel]);
 
     useEffect(() => {
-        window.addEventListener('mousedown', handleCloseByBackdrope);
+        window.addEventListener('click', handleCloseByBackdrope);
 
         return () => {
-            window.removeEventListener('mousedown', handleCloseByBackdrope);
+            window.removeEventListener('click', handleCloseByBackdrope);
         };
 
     }, [handleCloseByBackdrope]);

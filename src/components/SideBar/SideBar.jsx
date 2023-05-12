@@ -7,15 +7,12 @@ import { ListStyled } from "./Sidebar.styled";
 export const SideBar = () => {
     
 
-    const {filteredNotes} = useContext(NotesContext);
-
-  
-    
-    
-    return (<>
+    const { filteredNotes } = useContext(NotesContext);
+    const reversedNotes = [...filteredNotes];
+    return (
         <aside>
-            <ListStyled>{filteredNotes.reverse().map(note => <ListItem key={note.id} note={note} />)}</ListStyled>
+            <ListStyled>{reversedNotes.reverse().map(note => <ListItem key={note.id} note={note} />)}</ListStyled>
         </aside>
-    </>)
-}
+    )
+};
 

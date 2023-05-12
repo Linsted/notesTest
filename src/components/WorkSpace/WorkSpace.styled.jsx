@@ -59,7 +59,7 @@ export const TextStyled = styled.textarea`
 }
 
 width: 96%;
-  height: 900px;
+  height: 600px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

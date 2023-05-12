@@ -7,8 +7,7 @@ export const SearchBox = () => {
 
     const {searchTerm, handleSearchChange } = useContext(NotesContext);
 
-  return (<>
-
+  return (
     <HeaderStyled>
       <InputStyled
         type="text"
@@ -16,6 +15,5 @@ export const SearchBox = () => {
         value={searchTerm}
         onChange={handleSearchChange}
       />
-    </HeaderStyled>
-  </>);
+    </HeaderStyled>);
 };

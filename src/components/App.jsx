@@ -15,7 +15,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export const App = () => {
 
-  const errorText = 'Sorry, there is a problem with the server. Please, contact to your admin!';
+  const errorText = 'Sorry, there is a problem with the server or internet connection. Please, contact to your administrator!';
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -50,6 +50,11 @@ export const App = () => {
   const getNotes = async () => {
     try {
       const data = await fetchNotes();
+      if (data === null) {
+        toast.error(errorText, { duration: 5000 });
+        console.error("Data is null");
+        return;
+      }
       setNotes(data);
     } catch (error) {
       toast.error(errorText, {duration: 5000});
@@ -83,9 +88,7 @@ export const App = () => {
   return (
     <NotesContext.Provider value={contextValue}>
       <ContainerStyled>
-        
           <SearchBox />
-        
          <ContainerSideStyled >
         <SideBar />
         <WorkSpace />
