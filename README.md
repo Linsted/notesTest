@@ -3,7 +3,7 @@
 This is a simple notes application that allows users to create, update, and delete notes. Users can also search through their notes using a search bar.
 
 ## Features
-- Adaptive design, there is a mobile version of the App avaliable.
+- Adaptive design, there is a mobile version of the App avaliable
 - Create a new note
 - Update an existing note
 - Delete a note
